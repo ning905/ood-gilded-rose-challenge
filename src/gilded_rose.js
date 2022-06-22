@@ -94,10 +94,7 @@ class Shop {
   }
 
   updateQuality() {
-    for (var i = 0; i < this.items.length; i++) {
-      const currentItem = this.items[i];
-      currentItem.update()
-    }
+    this.items.forEach(item => item.update())
     return this.items;
   }
 }
