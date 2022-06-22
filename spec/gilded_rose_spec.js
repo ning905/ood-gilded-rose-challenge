@@ -1,4 +1,4 @@
-const {Shop, Item} = require('../src/gilded_rose.js');
+const {Shop, Item, AgedBrie, BackstagePasses,Sulfuras, Conjured} = require('../src/gilded_rose.js');
 describe("Gilded Rose", function() {
 
   it("should foo", function() {
@@ -49,7 +49,7 @@ describe("Gilded Rose", function() {
   
   it("should increase Aged Brie's Quality by 1 when SellIn >= 1", () => {
     //set up
-    const item = new Item('Aged Brie', 5, 10)
+    const item = new AgedBrie('Aged Brie', 5, 10)
     const gildedRose = new Shop([ item ]);
     const expectedQuality = 11
     const expectedSellIn = 4
@@ -62,7 +62,7 @@ describe("Gilded Rose", function() {
 
   it("should increase Aged Brie's Quality by 2 when SellIn < 1", () => {
     //set up
-    const item = new Item('Aged Brie', -2, 10)
+    const item = new AgedBrie('Aged Brie', -2, 10)
     const gildedRose = new Shop([ item ]);
     const expectedQuality = 12
     const expectedSellIn = -3
@@ -75,7 +75,7 @@ describe("Gilded Rose", function() {
 
   it("should not increase Quality to over 50", () => {
     //set up
-    const item = new Item('Aged Brie', -2, 49)
+    const item = new AgedBrie('Aged Brie', -2, 49)
     const gildedRose = new Shop([ item ]);
     const expectedQuality = 50
     const expectedSellIn = -3
@@ -88,7 +88,7 @@ describe("Gilded Rose", function() {
 
   it("should not increase or decrease Sulfuras' Quality or SellIn value", () => {
     //set up
-    const item = new Item('Sulfuras, Hand of Ragnaros', -2, 80)
+    const item = new Sulfuras('Sulfuras, Hand of Ragnaros', -2, 80)
     const gildedRose = new Shop([ item ]);
     const expectedQuality = 80
     const expectedSellIn = -2
@@ -101,7 +101,7 @@ describe("Gilded Rose", function() {
 
   it("should increase Backstage passes' Quality by 1 when SellIn >= 11", () => {
     //set up
-    const item = new Item('Backstage passes to a TAFKAL80ETC concert', 15, 15)
+    const item = new BackstagePasses('Backstage passes to a TAFKAL80ETC concert', 15, 15)
     const gildedRose = new Shop([ item ]);
     const expectedQuality = 16
     const expectedSellIn = 14
@@ -114,7 +114,7 @@ describe("Gilded Rose", function() {
   
   it("should increase Backstage passes' Quality by 2 when SellIn < 11", () => {
     //set up
-    const item = new Item('Backstage passes to a TAFKAL80ETC concert', 10, 15)
+    const item = new BackstagePasses('Backstage passes to a TAFKAL80ETC concert', 10, 15)
     const gildedRose = new Shop([ item ]);
     const expectedQuality = 17
     const expectedSellIn = 9
@@ -127,7 +127,7 @@ describe("Gilded Rose", function() {
 
   it("should increase Backstage passes' Quality by 2 when SellIn < 6", () => {
     //set up
-    const item = new Item('Backstage passes to a TAFKAL80ETC concert', 5, 15)
+    const item = new BackstagePasses('Backstage passes to a TAFKAL80ETC concert', 5, 15)
     const gildedRose = new Shop([ item ]);
     const expectedQuality = 18
     const expectedSellIn = 4
@@ -140,7 +140,7 @@ describe("Gilded Rose", function() {
 
   it("should decrease Conjured item's Quality by 2 and SellIn by 1 when SellIn >= 1", () => {
     //set up
-    const item = new Item('Conjured Mana Cake', 6, 10)
+    const item = new Conjured('Conjured Mana Cake', 6, 10)
     const gildedRose = new Shop([ item ]);
     const expectedQuality = 8
     const expectedSellIn = 5
@@ -153,7 +153,7 @@ describe("Gilded Rose", function() {
 
   it("should decrease Conjured item's Quality by 2 and SellIn by 1 when SellIn >= 1", () => {
     //set up
-    const item = new Item('Conjured Mana Cake', 6, 10)
+    const item = new Conjured('Conjured Mana Cake', 6, 10)
     const gildedRose = new Shop([ item ]);
     const expectedQuality = 8
     const expectedSellIn = 5
@@ -164,11 +164,11 @@ describe("Gilded Rose", function() {
     expect(expectedSellIn).toEqual(result[0].sellIn)
   })
 
-  it("should decrease Conjured item's Quality to negative", () => {
+  it("should never decrease Conjured item's Quality to negative", () => {
     //set up
-    const item = new Item('Conjured Mana Cake', -2, 1)
+    const item = new Conjured('Conjured Mana Cake', -2, 1)
     const gildedRose = new Shop([ item ]);
-    const expectedQuality = 1
+    const expectedQuality = 0
     const expectedSellIn = -3
     //execute
     const result = gildedRose.updateQuality()
